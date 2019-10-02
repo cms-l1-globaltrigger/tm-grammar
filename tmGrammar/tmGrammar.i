@@ -1,4 +1,4 @@
-%module(package="tmGrammar" moduleimport="import $module") tmGrammar
+%module(moduleimport="import $module") tmGrammar
 
 %include <std_vector.i>
 %include <std_string.i>

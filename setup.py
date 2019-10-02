@@ -71,7 +71,7 @@ tmGrammar_ext = Extension(
 )
 
 setup(
-    name='tm-grammar,
+    name='tm-grammar',
     version=UTM_VERSION,
     author="Bernhard Arnold",
     author_email="bernhard.arnold@cern.ch",

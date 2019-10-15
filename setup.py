@@ -67,6 +67,7 @@ tmGrammar_ext = Extension(
         os.path.join(UTM_ROOT, PACKAGE_NAME),
     ],
     libraries=['tmutil', 'tmgrammar'],
+    extra_compile_args=["-std=c++11"],
 )
 
 setup(

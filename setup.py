@@ -51,23 +51,19 @@ tmGrammar_ext = Extension(
     name='_tmGrammar',
     define_macros=[('SWIG', '1'),],
     sources=[
-        os.path.join(PACKAGE_DIR, 'tmGrammar_wrap.cxx'),
-        os.path.join(UTM_ROOT, PACKAGE_NAME, 'Algorithm.cc'),
-        os.path.join(UTM_ROOT, PACKAGE_NAME, 'Cut.cc'),
-        os.path.join(UTM_ROOT, PACKAGE_NAME, 'Object.cc'),
-        os.path.join(UTM_ROOT, PACKAGE_NAME, 'Function.cc'),
+        os.path.join(PACKAGE_DIR, 'tmGrammar_wrap.cxx')
     ],
     include_dirs=[
         UTM_ROOT,
-        os.path.join(UTM_ROOT, PACKAGE_NAME),
+        os.path.join(UTM_ROOT, PACKAGE_NAME)
     ],
     library_dirs=[
         PACKAGE_DIR,
         os.path.join(UTM_ROOT, 'tmUtil'),
-        os.path.join(UTM_ROOT, PACKAGE_NAME),
+        os.path.join(UTM_ROOT, PACKAGE_NAME)
     ],
     libraries=['tmutil', 'tmgrammar'],
-    extra_compile_args=["-std=c++11"],
+    extra_compile_args=["-std=c++11"]
 )
 
 setup(
@@ -82,5 +78,5 @@ setup(
     },
     packages=[PACKAGE_NAME],
     package_data={},
-    license="GPLv3",
+    license="GPLv3"
 )

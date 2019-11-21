@@ -7,6 +7,12 @@ Python bindings for tmGrammar.
 It is recommended to install the utm Python bindings in a virtual environment
 which makes it also possible to run multiple versions of utm in parallel.
 
+### Python 3.8
+
+```bash
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.7.3/tm_grammar-0.7.3-cp38-cp38-manylinux1_x86_64.whl
+```
+
 ### Python 3.7
 
 ```bash

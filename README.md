@@ -7,28 +7,34 @@ Python bindings for tmGrammar.
 It is recommended to install the utm Python bindings in a virtual environment
 which makes it also possible to run multiple versions of utm in parallel.
 
+### Python 3.9
+
+```bash
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.1/tm_grammar-0.8.1-cp39-cp39-manylinux1_x86_64.whl
+```
+
 ### Python 3.8
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.0/tm_grammar-0.8.0-cp38-cp38-manylinux1_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.1/tm_grammar-0.8.1-cp38-cp38-manylinux1_x86_64.whl
 ```
 
 ### Python 3.7
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.0/tm_grammar-0.8.0-cp37-cp37m-manylinux1_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.1/tm_grammar-0.8.1-cp37-cp37m-manylinux1_x86_64.whl
 ```
 
 ### Python 3.6
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.0/tm_grammar-0.8.0-cp36-cp36m-manylinux1_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.1/tm_grammar-0.8.1-cp36-cp36m-manylinux1_x86_64.whl
 ```
 
 ### Python 3.5
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.0/tm_grammar-0.8.0-cp35-cp35m-manylinux1_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.8.1/tm_grammar-0.8.1-cp35-cp35m-manylinux1_x86_64.whl
 ```
 
 ## Build instructions
@@ -43,7 +49,7 @@ First check out and build all utm libraries.
 ```bash
 git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git
 cd utm
-git checkout utm_0.8.0
+git checkout utm_0.8.1
 make all CPPFLAGS='-DNDEBUG -DSWIG'  # compile with -DSWIG
 . setup.sh  # source paths
 cd ..
@@ -54,7 +60,7 @@ Next build the Python bindings and pack them into a wheel. It is recommended to 
 ```bash
 git clone https://github.com/cms-l1-globaltrigger/tm-grammar.git
 cd tm-grammar
-git checkout 0.8.0
+git checkout 0.8.1
 python3 -m venv env
 . env/bin/activate
 pip install --upgrade pip wheel

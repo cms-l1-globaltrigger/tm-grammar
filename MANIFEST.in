@@ -1,2 +1,4 @@
+include tmGrammar/*.i
+
 include README.md
 include LICENSE

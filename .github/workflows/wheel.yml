@@ -35,5 +35,5 @@ jobs:
     - name: Test module
       run: |
         . ./build_utm/env.sh  # source utm libs
-        python -m tmGrammar
+        python -m tmGrammar.__init__
         python -c 'from tmGrammar import __version__; print(__version__)'

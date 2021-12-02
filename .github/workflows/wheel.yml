@@ -3,8 +3,11 @@ name: wheel
 on: [push]
 
 jobs:
-  build:
+  build_wheel:
     runs-on: ubuntu-latest
+    env:
+      MODULE: tmGrammar
+      UTM_VERSION: 0.10.0
     strategy:
       matrix:
         python-version: ["3.6"]
@@ -12,14 +15,14 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install build dependecies
       run: |
-        apt-get install libpython-dev libboost-all-dev libxerces-c-dev swig
-    - name: Install utm
+        sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
+    - name: Build utm
       run: |
-        git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 utm_0_10_0
-        cd utm_0_10_0
+        curl -L https://gitlab.cern.ch/cms-l1t-utm/utm/-/archive/utm_${{ env.UTM_VERSION }}/utm-utm_${{ env.UTM_VERSION }}.tar.gz -O
+        tar xzf utm-utm_${{ env.UTM_VERSION }}.tar.gz
+        cd utm-utm_${{ env.UTM_VERSION }}
         ./configure
         make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
-        make install PREFIX=.
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -27,15 +30,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install wheel pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint tmGrammar
+        pip install wheel
     - name: Build wheel
       run: |
+        . ./utm-utm_${{ env.UTM_VERSION }}/env.sh  # source utm libs
         python setup.py bdist_wheel
-        python -m pip install dist/tm-grammar*.whl
+        python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       run: |
-        python -m tmGrammar
-        python -c 'from tmGrammar import __version__; print(__version__)'
+        . ./utm-utm_${{ env.UTM_VERSION }}/env.sh  # source utm libs
+        python -m ${{ env.MODULE }}.__init__
+        python -c 'from ${{ env.MODULE }} import __version__; print(__version__)'

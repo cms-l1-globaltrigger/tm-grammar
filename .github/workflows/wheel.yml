@@ -3,8 +3,12 @@ name: wheel
 on: [push]
 
 jobs:
-  build:
+  build_wheel:
     runs-on: ubuntu-latest
+    env:
+      MODULE: tmGrammar
+      UTM_VERSION: 0.10.0
+      UTM_ARCHIVE:
     strategy:
       matrix:
         python-version: ["3.6"]
@@ -13,10 +17,11 @@ jobs:
     - name: Install build dependecies
       run: |
         sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
-    - name: Install utm
+    - name: Build utm
       run: |
-        git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 build_utm
-        cd build_utm
+        curl -L https://gitlab.cern.ch/cms-l1t-utm/utm/-/archive/utm_${{UTM_VERSION}}/utm-utm_${{UTM_VERSION}}.tar.gz -O
+        tar xzf utm-utm_${{UTM_VERSION}}.tar.gz
+        cd utm-utm_${{UTM_VERSION}}
         ./configure
         make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
     - name: Set up Python ${{ matrix.python-version }}
@@ -29,11 +34,11 @@ jobs:
         pip install wheel
     - name: Build wheel
       run: |
-        . ./build_utm/env.sh  # source utm libs
+        . ./utm-utm_${{UTM_VERSION}}/env.sh  # source utm libs
         python setup.py bdist_wheel
-        python -m pip install dist/tm_grammar-*-linux_x86_64.whl
+        python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       run: |
-        . ./build_utm/env.sh  # source utm libs
-        python -m tmGrammar.__init__
-        python -c 'from tmGrammar import __version__; print(__version__)'
+        . ./utm-utm_${{UTM_VERSION}}/env.sh  # source utm libs
+        python -m ${{MODULE}}.__init__
+        python -c 'from ${{MODULE}} import __version__; print(__version__)'

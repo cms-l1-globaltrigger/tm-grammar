@@ -8,7 +8,6 @@ jobs:
     env:
       MODULE: tmGrammar
       UTM_VERSION: 0.10.0
-      UTM_ARCHIVE:
     strategy:
       matrix:
         python-version: ["3.6"]
@@ -19,9 +18,9 @@ jobs:
         sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
     - name: Build utm
       run: |
-        curl -L https://gitlab.cern.ch/cms-l1t-utm/utm/-/archive/utm_${{UTM_VERSION}}/utm-utm_${{UTM_VERSION}}.tar.gz -O
-        tar xzf utm-utm_${{UTM_VERSION}}.tar.gz
-        cd utm-utm_${{UTM_VERSION}}
+        curl -L https://gitlab.cern.ch/cms-l1t-utm/utm/-/archive/utm_${{ env.UTM_VERSION }}/utm-utm_${{ env.UTM_VERSION }}.tar.gz -O
+        tar xzf utm-utm_${{ env.UTM_VERSION }}.tar.gz
+        cd utm-utm_${{ env.UTM_VERSION }}
         ./configure
         make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
     - name: Set up Python ${{ matrix.python-version }}
@@ -34,11 +33,11 @@ jobs:
         pip install wheel
     - name: Build wheel
       run: |
-        . ./utm-utm_${{UTM_VERSION}}/env.sh  # source utm libs
+        . ./utm-utm_${{ env.UTM_VERSION }}/env.sh  # source utm libs
         python setup.py bdist_wheel
         python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       run: |
-        . ./utm-utm_${{UTM_VERSION}}/env.sh  # source utm libs
-        python -m ${{MODULE}}.__init__
-        python -c 'from ${{MODULE}} import __version__; print(__version__)'
+        . ./utm-utm_${{ env.UTM_VERSION }}/env.sh  # source utm libs
+        python -m ${{ env.MODULE }}.__init__
+        python -c 'from ${{ env.MODULE }} import __version__; print(__version__)'

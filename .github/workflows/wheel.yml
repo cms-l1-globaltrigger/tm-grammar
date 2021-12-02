@@ -1,0 +1,41 @@
+name: wheel
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.6"]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build dependecies
+      run: |
+        apt-get install libpython-dev libboost-all-dev libxerces-c-dev swig
+    - name: Install utm
+      run: |
+        git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 utm_0_10_0
+        cd utm_0_10_0
+        ./configure
+        make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
+        make install PREFIX=.
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install wheel pylint
+    - name: Analysing the code with pylint
+      run: |
+        pylint tmGrammar
+    - name: Build wheel
+      run: |
+        python setup.py bdist_wheel
+        python -m pip install dist/tm-grammar*.whl
+    - name: Test module
+      run: |
+        python -m tmGrammar
+        python -c 'from tmGrammar import __version__; print(__version__)'

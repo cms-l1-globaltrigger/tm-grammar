@@ -26,12 +26,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install wheel
+        pip install wheel auditwheel
     - name: Build wheel
       run: |
         . ./build_utm/env.sh
         python setup.py bdist_wheel
-        python -m pip install dist/tm_grammar-*-linux_x86_64.whl
+        python -m auditwheel repair dist/tm_grammar-*.whl -w wheelhouse
+        python -m pip install wheelhouse/tm_grammar-*.whl
     - name: Test module
       run: |
         python -m tmGrammar

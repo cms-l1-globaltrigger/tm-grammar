@@ -12,11 +12,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install build dependecies
       run: |
-        sudo apt-get install -y libboost-all-dev libxerces-c-dev swig
+        sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
     - name: Install utm
       run: |
-        git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 utm_0_10_0
-        cd utm_0_10_0
+        git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 build_utm
+        cd build_utm
         ./configure
         make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
     - name: Set up Python ${{ matrix.python-version }}
@@ -29,9 +29,9 @@ jobs:
         pip install wheel
     - name: Build wheel
       run: |
-        . ./utm_0_10_0/env.sh
+        . ./build_utm/env.sh
         python setup.py bdist_wheel
-        python -m pip install dist/tm-grammar*.whl
+        python -m pip install dist/tm_grammar-*-linux_x86_64.whl
     - name: Test module
       run: |
         python -m tmGrammar

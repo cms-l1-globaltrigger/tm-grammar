@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install build dependecies
       run: |
-        sudo apt-get install -y libpython-dev libboost-all-dev libxerces-c-dev swig
+        sudo apt-get install -y libboost-all-dev libxerces-c-dev swig
     - name: Install utm
       run: |
         git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git -b utm_0.10.0 utm_0_10_0

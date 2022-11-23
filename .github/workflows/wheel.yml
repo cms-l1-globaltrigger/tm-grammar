@@ -10,7 +10,7 @@ jobs:
       UTM_VERSION: 0.10.0
     strategy:
       matrix:
-        python-version: ["3.6"]
+        python-version: ["3.8"]
     steps:
     - uses: actions/checkout@v2
     - name: Install build dependecies

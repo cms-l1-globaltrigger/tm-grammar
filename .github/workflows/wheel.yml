@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MODULE: tmGrammar
-      UTM_VERSION: 0.10.0
+      UTM_VERSION: 0.11.0
     strategy:
       matrix:
-        python-version: ["3.8"]
+        python-version: ["3.9"]
     steps:
     - uses: actions/checkout@v2
     - name: Install build dependecies

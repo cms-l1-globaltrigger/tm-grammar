@@ -7,40 +7,46 @@ Python bindings for tmGrammar.
 It is recommended to install the utm Python bindings in a virtual environment
 which makes it also possible to use multiple versions in parallel.
 
+### Python 3.12
+
+```bash
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+```
+
 ### Python 3.11
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ### Python 3.10
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ### Python 3.9
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ### Python 3.8
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ### Python 3.7
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ### Python 3.6
 
 ```bash
-pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.11.2/tm_grammar-0.11.2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+pip install https://github.com/cms-l1-globaltrigger/tm-grammar/releases/download/0.12.0/tm_grammar-0.12.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 ```
 
 ## Build instructions
@@ -64,7 +70,7 @@ Check out and build all utm libraries.
 ```bash
 git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git
 cd utm
-git checkout utm_0.11.2
+git checkout utm_0.12.0
 ./configure # create makefiles
 make all CPPFLAGS='-DNDEBUG -DSWIG'  # compile with -DSWIG
 . ./env.sh  # source paths
@@ -77,7 +83,7 @@ recommended to execute this step in a virtual environment.
 ```bash
 git clone https://github.com/cms-l1-globaltrigger/tm-grammar.git
 cd tm-grammar
-git checkout 0.11.2
+git checkout 0.12.0
 python3 -m venv env
 . env/bin/activate
 pip install --upgrade pip

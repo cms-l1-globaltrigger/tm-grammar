@@ -18,8 +18,8 @@ jobs:
         sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
     - name: Build utm
       env:
-        BUILD_DIR: ${{ env.GITHUB_WORKSPACE }}/build
-        UTM_BASE: ${{ env.GITHUB_WORKSPACE }}/dist/utm
+        BUILD_DIR: ${{ vars.GITHUB_WORKSPACE }}/build
+        UTM_BASE: ${{ vars.GITHUB_WORKSPACE }}/dist/utm
       run: |
         mkdir -p ${{ env.BUILD_DIR }}
         cd ${{ env.BUILD_DIR }}
@@ -39,13 +39,13 @@ jobs:
         pip install build wheel
     - name: Build wheel
       env:
-        UTM_BASE: ${{ env.GITHUB_WORKSPACE }}/dist/utm
+        UTM_BASE: ${{ vars.GITHUB_WORKSPACE }}/dist/utm
       run: |
         python -m build
         python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       env:
-        LD_LIBRARY_PATH: ${{ env.GITHUB_WORKSPACE }}/dist/utm/lib
+        LD_LIBRARY_PATH: ${{ vars.GITHUB_WORKSPACE }}/dist/utm/lib
       run: |
         python -m ${{ env.MODULE }}.__init__
         python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == ${{ env.UTM_VERSION }}'

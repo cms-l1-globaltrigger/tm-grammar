@@ -1,0 +1,60 @@
+name: Build wheels
+
+on: [workflow_dispatch]
+
+env:
+  UTM_VERSION: 0.12.0
+  BOOST_VERSION: 1.84.0
+  XERCES_C_VERSION: 3.2.5
+
+jobs:
+  build_wheels_linux:
+    name: Build wheels for Linux
+    runs-on: ubuntu-latest
+    env:
+      CIBW_ENVIRONMENT: >
+        BOOST_BASE=/project/dist/boost
+        XERCES_C_BASE=/project/dist/xerces-c
+        UTM_BASE=/project/dist/utm
+        LD_LIBRARY_PATH=$BOOST_BASE/lib:$XERCES_C_BASE/lib:$UTM_BASE/lib
+      CIBW_BEFORE_ALL: |
+        bash .github/build_all.sh
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v3
+    - name: Install cibuildwheel
+      run: python -m pip install cibuildwheel==2.16.5
+    - name: Build wheels
+      run: |
+        python -m cibuildwheel --output-dir wheelhouse
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cibw-wheels-linux
+        path: ./wheelhouse/*.whl
+  build_wheels_macos:
+    name: Build wheels for MacOS
+    runs-on: macos-11
+    env:
+      MACOSX_DEPLOYMENT_TARGET: '10.9'
+      CIBW_ENVIRONMENT: >
+        BOOST_BASE=${{ env.GITHUB_WORKSPACE }}/dist/boost
+        XERCES_C_BASE=${{ env.GITHUB_WORKSPACE }}/dist/xerces-c
+        UTM_BASE=${{ env.GITHUB_WORKSPACE }}/dist/utm
+        REPAIR_LIBRARY_PATH=$BOOST_BASE/lib:$XERCES_C_BASE/lib:$UTM_BASE/lib
+      CIBW_BEFORE_ALL: bash .github/build_all.sh
+      CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
+        DYLD_LIBRARY_PATH="${REPAIR_LIBRARY_PATH}" delocate-listdeps {wheel} &&
+        DYLD_LIBRARY_PATH="${REPAIR_LIBRARY_PATH}" delocate-wheel --require-archs {delocate_archs} -w {dest_dir} {wheel}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install cibuildwheel==2.16.5
+      - name: Build wheels
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cibw-wheels-macos
+          path: ./wheelhouse/*.whl

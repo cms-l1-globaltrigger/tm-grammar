@@ -17,18 +17,9 @@ jobs:
       run: |
         sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
     - name: Build utm
-      env:
-        BUILD_DIR: ${{ vars.GITHUB_WORKSPACE }}/build
-        UTM_BASE: ${{ vars.GITHUB_WORKSPACE }}/dist/utm
       run: |
-        mkdir -p ${{ env.BUILD_DIR }}
-        cd ${{ env.BUILD_DIR }}
-        curl -LO https://gitlab.cern.ch/cms-l1t-utm/utm/-/archive/utm_${{ env.UTM_VERSION }}/utm-utm_${{ env.UTM_VERSION }}.tar.gz
-        tar xzf utm-utm_${{ env.UTM_VERSION }}.tar.gz
-        cd utm-utm_${{ env.UTM_VERSION }}
-        ./configure
-        make all -j4 CPPFLAGS='-DNDEBUG -DSWIG'
-        make install PREFIX=${{ env.UTM_BASE }}
+        export UTM_BASE=$(pwd)/dist/utm
+        bash .github/build_all.sh
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
@@ -38,14 +29,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install build wheel
     - name: Build wheel
-      env:
-        UTM_BASE: ${{ vars.GITHUB_WORKSPACE }}/dist/utm
       run: |
+        export UTM_BASE=$(pwd)/dist/utm bash
         python -m build
         python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
-      env:
-        LD_LIBRARY_PATH: ${{ vars.GITHUB_WORKSPACE }}/dist/utm/lib
       run: |
+        export LD_LIBRARY_PATH: $(pwd)/dist/utm/lib
         python -m ${{ env.MODULE }}.__init__
         python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == ${{ env.UTM_VERSION }}'

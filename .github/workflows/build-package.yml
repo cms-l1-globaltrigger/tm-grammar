@@ -30,11 +30,11 @@ jobs:
         pip install build wheel
     - name: Build wheel
       run: |
-        export UTM_BASE=$(pwd)/dist/utm bash
+        export UTM_BASE="$(pwd)/dist/utm"
         python -m build
         python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       run: |
-        export LD_LIBRARY_PATH: $(pwd)/dist/utm/lib
+        export LD_LIBRARY_PATH="$(pwd)/dist/utm/lib"
         python -m ${{ env.MODULE }}.__init__
         python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == ${{ env.UTM_VERSION }}'

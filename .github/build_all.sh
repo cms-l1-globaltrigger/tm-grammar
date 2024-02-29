@@ -29,6 +29,7 @@ do
   else
     echo "invalid argument: $arg"
     exit 1
+  fi
 done
 
 mkdir -p $BUILD_DIR

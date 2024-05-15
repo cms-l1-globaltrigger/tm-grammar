@@ -70,7 +70,7 @@ Check out and build all utm libraries.
 ```bash
 git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git
 cd utm
-git checkout utm_0.12.0
+git checkout utm_0.13.0
 ./configure # create makefiles
 make all CPPFLAGS='-DNDEBUG -DSWIG'  # compile with -DSWIG
 . ./env.sh  # source paths
@@ -83,7 +83,7 @@ recommended to execute this step in a virtual environment.
 ```bash
 git clone https://github.com/cms-l1-globaltrigger/tm-grammar.git
 cd tm-grammar
-git checkout 0.12.0
+git checkout 0.13.0
 python3 -m venv env
 . env/bin/activate
 pip install --upgrade pip

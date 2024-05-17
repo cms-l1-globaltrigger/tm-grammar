@@ -26,8 +26,8 @@ def load_version(f):
     return '.'.join(versions)
 
 
-#with open(os.path.join(UTM_ROOT, PACKAGE_NAME, 'include', 'utm', PACKAGE_NAME, 'version.h')) as f:
-    #assert UTM_VERSION == load_version(f)
+with open(os.path.join(UTM_ROOT, PACKAGE_NAME, 'include', 'utm', PACKAGE_NAME, 'version.h')) as f:
+    assert UTM_VERSION == load_version(f)
 
 
 class BuildPyCommand(setuptools.command.build_py.build_py):

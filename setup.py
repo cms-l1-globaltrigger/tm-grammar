@@ -3,7 +3,7 @@ import os
 
 from setuptools import setup, Extension
 
-UTM_VERSION = "0.13.0"
+UTM_VERSION = "0.12.0"
 PACKAGE_NAME = "tmGrammar"
 PACKAGE_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), PACKAGE_NAME))
 UTM_BASE = os.environ.get("UTM_BASE", "")

@@ -3,7 +3,7 @@
 
 set -eo pipefail
 
-: ${UTM_VERSION:=0.13.0}
+: ${UTM_VERSION:=0.12.0}
 : ${UTM_BASE:="$(pwd)/dist/utm"}
 : ${UTM_FLAGS:=""}
 

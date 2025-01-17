@@ -10,7 +10,7 @@ jobs:
       MODULE: tmGrammar
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
     - uses: actions/checkout@v4
     - name: Install build dependecies
@@ -37,4 +37,4 @@ jobs:
       run: |
         export LD_LIBRARY_PATH="$(pwd)/dist/utm/lib"
         python -m ${{ env.MODULE }}.__init__
-        python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == ${{ env.UTM_VERSION }}'
+        python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == "${{ env.UTM_VERSION }}"'

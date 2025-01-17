@@ -51,6 +51,7 @@ then
   curl -L https://github.com/apache/xerces-c/archive/v${XERCES_C_VERSION}.tar.gz --output xerces-c-${XERCES_C_VERSION}.tar.gz
   tar xzf xerces-c-${XERCES_C_VERSION}.tar.gz
   cd xerces-c-${XERCES_C_VERSION}
+  ./reconf
   ./configure --prefix=${XERCES_C_BASE}
   make ${MAKE_ARGS}
   make install

@@ -15,7 +15,7 @@ set -eo pipefail
 
 : ${BUILD_UTM:=1}
 : ${BUILD_DIR:="$(pwd)/build"}
-: ${MAKE_ARGS:="-j$(nproc)"}
+: ${MAKE_ARGS:=""}
 
 for arg in "$@"
 do

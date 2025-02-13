@@ -12,6 +12,7 @@ jobs:
     name: Build wheels for Linux
     runs-on: ubuntu-latest
     env:
+      CIBW_SKIP: pp*
       CIBW_ENVIRONMENT: >
         BOOST_BASE=/project/dist/boost
         XERCES_C_BASE=/project/dist/xerces-c
@@ -36,12 +37,14 @@ jobs:
     runs-on: macos-13
     env:
       MACOSX_DEPLOYMENT_TARGET: '10.9'
+      CIBW_SKIP: pp*
       CIBW_ENVIRONMENT: >
         BOOST_BASE=${GITHUB_WORKSPACE}/dist/boost
         XERCES_C_BASE=${GITHUB_WORKSPACE}/dist/xerces-c
         UTM_BASE=${GITHUB_WORKSPACE}/dist/utm
         REPAIR_LIBRARY_PATH=$BOOST_BASE/lib:$XERCES_C_BASE/lib:$UTM_BASE/lib
-      CIBW_BEFORE_ALL: bash .github/build_all.sh --with-boost --with-xerces-c
+      CIBW_BEFORE_ALL: |
+        bash .github/build_all.sh --with-boost --with-xerces-c
       CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
         DYLD_LIBRARY_PATH="${REPAIR_LIBRARY_PATH}" delocate-listdeps {wheel} &&
         DYLD_LIBRARY_PATH="${REPAIR_LIBRARY_PATH}" delocate-wheel --require-archs {delocate_archs} -w {dest_dir} {wheel}

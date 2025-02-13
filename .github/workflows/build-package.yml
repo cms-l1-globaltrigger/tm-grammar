@@ -18,8 +18,7 @@ jobs:
         sudo apt-get install -y libboost-dev libboost-system-dev libboost-filesystem-dev libxerces-c-dev swig
     - name: Build utm
       run: |
-        export UTM_BASE=$(pwd)/dist/utm
-        bash .github/build_all.sh
+        python3 .github/build.py --utm-version=${{ env.UTM_VERSION }} --install-prefix=${GITHUB_WORKSPACE}/dist
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
@@ -30,11 +29,11 @@ jobs:
         pip install build wheel
     - name: Build wheel
       run: |
-        export UTM_BASE="$(pwd)/dist/utm"
+        export UTM_BASE=${GITHUB_WORKSPACE}/dist
         python -m build
         python -m pip install dist/*-linux_x86_64.whl
     - name: Test module
       run: |
-        export LD_LIBRARY_PATH="$(pwd)/dist/utm/lib"
+        export LD_LIBRARY_PATH=${GITHUB_WORKSPACE}/dist/lib
         python -m ${{ env.MODULE }}.__init__
         python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == "${{ env.UTM_VERSION }}"'

@@ -34,7 +34,7 @@ jobs:
         path: ./wheelhouse/*.whl
   build_wheels_macos:
     name: Build wheels for MacOS
-    runs-on: macos-latest
+    runs-on: macos-13
     env:
       MACOSX_DEPLOYMENT_TARGET: '10.9'
       CIBW_SKIP: pp*

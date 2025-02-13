@@ -15,7 +15,7 @@ set -eo pipefail
 
 : ${BUILD_UTM:=1}
 : ${BUILD_DIR:="$(pwd)/build"}
-: ${MAKE_ARGS:=""}
+: ${MAKE_ARGS:="-j$(nproc)"}
 
 for arg in "$@"
 do
@@ -53,7 +53,7 @@ then
   cd xerces-c-${XERCES_C_VERSION}
   mkdir build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${XERCES_C_BASE} ..
+  cmake -DCMAKE_INSTALL_PREFIX=${XERCES_C_BASE} -DCMAKE_INSTALL_LIBDIR=lib ..
   make ${MAKE_ARGS}
   make install
   UTM_FLAGS+=" XERCES_C_BASE=${XERCES_C_BASE}"

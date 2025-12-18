@@ -3,9 +3,9 @@ import os
 import subprocess
 from urllib.request import urlretrieve
 
-DEFAULT_UTM_VERSION = "0.13.0"
-DEFAULT_BOOST_VERSION = "1.84.0"
-DEFAULT_XERCES_C_VERSION = "3.2.5"
+DEFAULT_UTM_VERSION = "0.14.0"
+DEFAULT_BOOST_VERSION = "1.90.0"
+DEFAULT_XERCES_C_VERSION = "3.3.0"
 DEFAULT_BUILD_DIR = os.path.join(os.getcwd(), "build")
 DEFAULT_INSTALL_PREFIX = os.path.join(os.getcwd(), "dist")
 

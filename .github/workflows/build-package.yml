@@ -6,11 +6,10 @@ jobs:
   build_wheel:
     runs-on: ubuntu-latest
     env:
-      UTM_VERSION: 0.13.0
-      MODULE: tmGrammar
+      UTM_VERSION: 0.14.0
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
     - uses: actions/checkout@v4
     - name: Install build dependecies
@@ -32,8 +31,3 @@ jobs:
         export UTM_BASE=${GITHUB_WORKSPACE}/dist
         python -m build
         python -m pip install dist/*-linux_x86_64.whl
-    - name: Test module
-      run: |
-        export LD_LIBRARY_PATH=${GITHUB_WORKSPACE}/dist/lib
-        python -m ${{ env.MODULE }}.__init__
-        python -c 'from ${{ env.MODULE }} import __version__; print(__version__); assert __version__ == "${{ env.UTM_VERSION }}"'

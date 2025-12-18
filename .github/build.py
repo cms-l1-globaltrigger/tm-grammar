@@ -31,13 +31,15 @@ class Builder:
 class BoostBuilder(Builder):
     def fetch(self):
         os.chdir(self.build_dir)
-        url = f"https://github.com/boostorg/boost/releases/download/boost-{self.version}/boost-{self.version}.tar.xz"
-        urlretrieve(url, f"boost-{self.version}.tar.xz")
-        run("tar", "xf", f"boost-{self.version}.tar.xz", "-C", self.build_dir)
+        fs_version = self.version.replace(".", "_")
+        url = f"https://archives.boost.io/release/{self.version}/source/boost_{fs_version}.tar.gz"
+        urlretrieve(url, f"boost_{fs_version}.tar.gz")
+        run("tar", "xf", f"boost_{fs_version}.tar.gz", "-C", self.build_dir)
 
     def build(self):
+        fs_version = self.version.replace(".", "_")
         os.chdir(self.build_dir)
-        os.chdir(f"boost-{self.version}")
+        os.chdir(f"boost_{fs_version}")
         b2_options = [
             f"-j{self.cpu_count}",
             "--with-system",

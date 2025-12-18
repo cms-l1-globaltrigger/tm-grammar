@@ -2,11 +2,6 @@ name: Build wheels
 
 on: [push, workflow_dispatch]
 
-env:
-  UTM_VERSION: 0.14.0
-  BOOST_VERSION: 1.90.0
-  XERCES_C_VERSION: 3.3.0
-
 jobs:
   build_wheels_linux:
     name: Build wheels for Linux

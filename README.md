@@ -32,6 +32,7 @@ Check out and build all utm libraries.
 git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git
 cd utm
 git checkout utm_0.14.0
+>>>>>>> main
 ./configure # create makefiles
 make all CPPFLAGS='-DNDEBUG -DSWIG'  # compile with -DSWIG
 . ./env.sh  # source paths

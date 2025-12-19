@@ -21,6 +21,10 @@ class Builder:
         self.install_prefix = os.path.realpath(install_prefix)
         self.cpu_count = os.cpu_count()
 
+    @property
+    def version_us(self):
+        return self.version.replace(".", "_")
+
     def fetch(self):
         ...
 
@@ -31,15 +35,13 @@ class Builder:
 class BoostBuilder(Builder):
     def fetch(self):
         os.chdir(self.build_dir)
-        fs_version = self.version.replace(".", "_")
-        url = f"https://archives.boost.io/release/{self.version}/source/boost_{fs_version}.tar.gz"
-        urlretrieve(url, f"boost_{fs_version}.tar.gz")
-        run("tar", "xf", f"boost_{fs_version}.tar.gz", "-C", self.build_dir)
+        url = f"https://archives.boost.io/release/{self.version}/source/boost_{self.version_us}.tar.gz"
+        urlretrieve(url, f"boost_{self.version_us}.tar.gz")
+        run("tar", "xf", f"boost_{self.version_us}.tar.gz", "-C", self.build_dir)
 
     def build(self):
-        fs_version = self.version.replace(".", "_")
         os.chdir(self.build_dir)
-        os.chdir(f"boost_{fs_version}")
+        os.chdir(f"boost_{self.version_us}")
         b2_options = [
             f"-j{self.cpu_count}",
             "--with-system",

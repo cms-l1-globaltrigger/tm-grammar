@@ -15,8 +15,7 @@ pip install --index https://globaltrigger.web.cern.ch/pypi tm-grammar==0.14.0
 
 **Note:** building the Python bindings from scratch is only recommended for
 development. To create portable Python bindings use the
-[tm-manylinux](https://github.com/cms-l1-globaltrigger/tm-manylinux)
-Docker image.
+[cibuildwheel](https://cibuildwheel.pypa.io/en/stable/) workflow.
 
 Make sure to install all required build dependecies.
 

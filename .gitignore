@@ -1,3 +1,8 @@
+# Extension files
+tmGrammar/_version.py
+tmGrammar/tmGrammar.py
+tmGrammar/tmGrammar_wrap.cxx
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -20,6 +25,7 @@ parts/
 sdist/
 var/
 wheels/
+wheelhouse/
 *.egg-info/
 .installed.cfg
 *.egg

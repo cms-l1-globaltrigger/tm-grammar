@@ -8,7 +8,7 @@ It is recommended to install the utm Python bindings in a virtual environment
 which makes it also possible to use multiple versions in parallel.
 
 ```bash
-pip install --index https://globaltrigger.web.cern.ch/pypi tm-grammar==0.14.0
+pip install --index https://globaltrigger.web.cern.ch/pypi tm-grammar==0.14.1
 ```
 
 ## Build instructions
@@ -31,7 +31,7 @@ Check out and build all utm libraries.
 ```bash
 git clone https://gitlab.cern.ch/cms-l1t-utm/utm.git
 cd utm
-git checkout utm_0.14.0
+git checkout utm_0.14.1
 >>>>>>> main
 ./configure # create makefiles
 make all CPPFLAGS='-DNDEBUG -DSWIG'  # compile with -DSWIG
@@ -45,7 +45,7 @@ recommended to execute this step in a virtual environment.
 ```bash
 git clone https://github.com/cms-l1-globaltrigger/tm-grammar.git
 cd tm-grammar
-git checkout 0.14.0
+git checkout 0.14.1
 python3 -m venv env
 . env/bin/activate
 pip install --upgrade pip

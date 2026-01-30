@@ -3,7 +3,7 @@ import os
 import subprocess
 from urllib.request import urlretrieve
 
-DEFAULT_UTM_VERSION = "0.14.0"
+DEFAULT_UTM_VERSION = "0.14.1"
 DEFAULT_BOOST_VERSION = "1.84.0"
 DEFAULT_XERCES_C_VERSION = "3.2.5"
 DEFAULT_BUILD_DIR = os.path.join(os.getcwd(), "build")

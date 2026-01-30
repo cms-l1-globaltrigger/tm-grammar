@@ -99,7 +99,7 @@ class UtmBuilder(Builder):
         run("./configure")
         make_options = [
             f"-j{self.cpu_count}",
-            "CPPFLAGS='-DNDEBUG -DSWIG'",
+            "CPPFLAGS=-DNDEBUG -DSWIG",
         ]
         if self.boost_prefix:
             make_options.append(f"BOOST_BASE={self.boost_prefix}")
